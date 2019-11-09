@@ -19,6 +19,8 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# raise 'Change ProjectName in application.rb'
+
 module WebApiTemplate
   class Application < Rails::Application
     config.app_generators.scaffold_controller :responders_controller
@@ -40,7 +42,7 @@ module WebApiTemplate
     config.api_only = true
 
     Raven.configure do |config|
-      config.dsn = Rails.application.credentials[Rails.env.to_sym][:sentry_access_token] || ''
+      config.dsn = Rails.application.credentials.dig(Rails.env.to_sym, :sentry_access_token) || ''
       config.excluded_exceptions += ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
       config.environments = ['staging', 'production']
     end
