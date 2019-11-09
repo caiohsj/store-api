@@ -43,4 +43,4 @@ files_to_correct = { files: to_avaliate_files, inline_comment: true }
 
 rubocop.lint files_to_correct
 
-#reek.lint (git.modified_files + git.added_files) # TODO: Configurar Reek, desabilitado por hora
+reek.lint to_avaliate_files # TODO: Configurar Reek
