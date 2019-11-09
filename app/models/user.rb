@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include TokenAuthenticatable
-  # include RailsAdmin::User
+  include RailsAdmin::User
 
   # mount_uploader :avatar, AvatarUploader
 
