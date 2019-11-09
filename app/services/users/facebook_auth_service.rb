@@ -44,7 +44,6 @@ class Users::FacebookAuthService < BusinessProcess::Base
                      password: Devise.friendly_token[0, 20], remote_avatar_url: avatar_url,
                      synced_fb: false)
     fail([I18n.t('facebok_auth.email_exists')]) if User.exists?(email: @facebook_user['email'])
-
   end
 
   def define_email(fb_user)

@@ -1,0 +1,144 @@
+# Most things based on https://docs.google.com/document/d/1ixsaDg9OdC6iUIHQjsXe2x4uppfFvX3-23tW-yqg-Ok/edit?usp=sharing
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'scrip/**/*'
+    - 'Dangerfile'
+    - 'lib/tasks/**'
+    - 'app/channels/**/**'
+    - 'test/**'
+    - 'Gemfile'
+    - 'spec/rails_helper.rb'
+    - 'features/support/env.rb'
+    - 'features/step_definitions/*'
+    - 'bin/*'
+
+# METRICS
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/factories/**'
+    - 'app/models/concerns/rails_admin/*'
+
+Metrics/LineLength:
+  Max: 150
+  Exclude:
+    - 'app/models/**/*'
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'lib/git/danger/helper.rb'
+
+Metrics/MethodLength:
+  Max: 15
+
+# STYLES
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - 'danger/plugins/helper.rb'
+    - 'lib/git/danger/helper.rb'
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/SignalException:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: true
+  EnforcedStyle: assign_inside_condition
+  IncludeTernaryExpressions: false
+
+Style/BlockDelimiters:
+  Enabled: true
+  EnforcedStyle: line_count_based
+
+Style/ClassCheck:
+  Enabled: true
+  EnforcedStyle: is_a?
+
+Style/EmptyMethod:
+  Enabled: true
+  EnforcedStyle: expanded
+
+Style/FloatDivision:
+  Enabled: true
+  EnforcedStyle: fdiv
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/Lambda:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Exclude:
+    - 'lib/git/danger/helper.rb'
+
+# LAYOUTS
+
+Layout/Tab:
+  Enabled: true
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: ending_only
+
+Layout/ClassStructure:
+  Enabled: true
+  Categories:
+    association:
+      - has_many
+      - has_one
+      - belongs_to
+    module_inclusion:
+      - include
+      - extend
+      - prepend
+    macros:
+      - validates
+      - validate
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - association
+    - macros
+    - public_class_methods
+    - initializer
+    - instance_methods
+    - private_methods
+    - protected_methods
+
+Layout/IndentHeredoc:
+  EnforcedStyle: powerpack
+
+# Trailing white space is meaningful in code examples
+Layout/TrailingWhitespace:
+  AllowInHeredoc: true
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+# LINTS
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/InterpolationCheck:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/Debugger:
+  Enabled: true
+
+# NAMES
+Naming/PredicateName:
+  NamePrefixBlacklist: []

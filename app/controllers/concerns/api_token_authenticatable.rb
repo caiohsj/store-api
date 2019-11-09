@@ -36,7 +36,7 @@ module ApiTokenAuthenticatable
     request_email = request.headers["HTTP_#{header_name(model)}_EMAIL"].presence
     request_token = request.headers["HTTP_#{header_name(model)}_TOKEN"].presence
 
-    user          = request_email && model.find_by(email: request_email)
+    user = request_email && model.find_by(email: request_email)
     [user, request_token]
   end
 

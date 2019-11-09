@@ -29,5 +29,4 @@ module ApiCommonResponses
   def verify_errors(resource)
     { errors: resource }
   end
-
 end

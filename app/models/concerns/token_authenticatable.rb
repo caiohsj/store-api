@@ -32,5 +32,4 @@ module TokenAuthenticatable
   def update_authentication_token(encrypted_token)
     update(authentication_token: encrypted_token)
   end
-
 end
