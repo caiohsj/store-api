@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_09_212021) do
+ActiveRecord::Schema.define(version: 2019_11_09_213015) do
 
   create_table "jera_push_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "token"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_11_09_212021) do
     t.string "name"
     t.string "avatar"
     t.string "document"
+    t.string "platform"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
