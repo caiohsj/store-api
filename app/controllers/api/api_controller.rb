@@ -1,14 +1,15 @@
 class Api::ApiController < ActionController::API
-  include APITokenAuthenticatable
-  include APICommonResponses
-  
+  include ApiTokenAuthenticatable
+  include ApiCommonResponses
+
+  # after_action :build_headers_if_needed!
+
   respond_to :json
 
   protected
 
-  def serialize_resource(resource, serializer)
-    response = {}
-    response[resource.model_name.param_key.to_sym] = JSON.parse(serializer.new(resource, {}).to_json)
+  def serialize_resource(resource, serializer, scope: nil)
+    response = JSON.parse(serializer.new(resource, scope: scope).to_json)
     response
   end
 
@@ -20,4 +21,5 @@ class Api::ApiController < ActionController::API
   def serialize_fixed_values(values)
     values
   end
+
 end

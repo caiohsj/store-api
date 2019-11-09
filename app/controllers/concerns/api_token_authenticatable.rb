@@ -1,8 +1,8 @@
 # Esse arquivo e padrao do time WEB, portanto foi apenas trazido de outros lugares
 
-module APITokenAuthenticatable
+module ApiTokenAuthenticatable
   extend ActiveSupport::Concern
-  include APICommonResponses
+  include ApiCommonResponses
 
   # You can use any model, like Admin or Driver, just sent headers like above pattern
   # HTTP_#{model_name}_EMAIL and HTTP_#{model_name}_TOKEN

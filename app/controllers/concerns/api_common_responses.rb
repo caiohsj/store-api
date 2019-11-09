@@ -1,6 +1,6 @@
 # Esse arquivo e padrao do time WEB, portanto foi apenas trazido de outros lugares
 
-module APICommonResponses
+module ApiCommonResponses
   extend ActiveSupport::Concern
 
   def render_success(data = {})
@@ -29,4 +29,5 @@ module APICommonResponses
   def verify_errors(resource)
     { errors: resource }
   end
+
 end

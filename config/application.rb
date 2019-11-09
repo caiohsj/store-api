@@ -21,9 +21,14 @@ Bundler.require(*Rails.groups)
 
 module WebApiTemplate
   class Application < Rails::Application
+    config.app_generators.scaffold_controller :responders_controller
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    I18n.available_locales = ['pt-BR', :en]
+    config.i18n.default_locale = :'pt-BR'
+
+    config.autoload_paths << "#{Rails.root}/app/services/*"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -33,5 +38,10 @@ module WebApiTemplate
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_web_api_template_session"}
   end
 end
