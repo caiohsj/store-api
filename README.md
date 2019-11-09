@@ -25,6 +25,8 @@
 
 *Tirar isso aqui quando for para o seu projeto*
 
+- Se sua aplicação não for só API e tiver uma parte WEB, primerio la em `application.rb` comente a linha `config.api_only = true`, e não se esqueça de descomentar as gems de Assets la no Gemfile e depois de rodar um `bundle install` rode o comando `rails webpacker:install`.
+
 - Não esqueça de gerar a master key do seu projeto e colocar ela no Git e depois adicionar no gitignore de novo
 
 Mudar o nome do projeto em `application.rb` la está `ProjectName`.
