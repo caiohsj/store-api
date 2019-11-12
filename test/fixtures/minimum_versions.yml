@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  platform: 1
+  version_number: 1
+  build_number: 1
+  required: false
+  latest: false
+  description: MyText
+
+two:
+  platform: 1
+  version_number: 1
+  build_number: 1
+  required: false
+  latest: false
+  description: MyText

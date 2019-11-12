@@ -24,6 +24,10 @@ module ApiCommonResponses
     render json: { status: 401 }, status: :unauthorized
   end
 
+  def render_no_content
+    render json: { status: 204 }, status: :no_content
+  end
+
   private
 
   def verify_errors(resource)

@@ -17,7 +17,7 @@ gem 'unicorn'
 
 # Facilities
 gem 'devise'
-gem 'jera_push', '~> 1.1.7'
+# gem 'jera_push'
 gem 'business_process'
 gem 'rails_admin', '~> 2.0'
 gem "cpf_cnpj"
