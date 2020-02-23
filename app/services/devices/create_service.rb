@@ -32,7 +32,6 @@ class Devices::CreateService < BusinessProcess::Base
       @device = JeraPush::Device.create(token: @token,
                                         platform: @platform,
                                         pushable_id: pushable.id)
-      debugger
     else
       update_device
     end

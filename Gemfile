@@ -5,19 +5,21 @@ ruby '2.6.3'
 
 #Backend
 gem 'mysql2', '>= 0.4.4'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.0.2'
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'unicorn'
 
+# Descomentar caso sua aplicaçao for ter front-end
 # Assets
 # gem 'sass-rails', '~> 5'
+# https://github.com/rails/webpacker
 # gem 'webpacker', '~> 4.0'
 # gem 'turbolinks', '~> 5'
 
 # Facilities
 gem 'devise'
-# gem 'jera_push'
+gem 'jera_push'
 gem 'business_process'
 gem 'rails_admin', '~> 2.0'
 gem "cpf_cnpj"

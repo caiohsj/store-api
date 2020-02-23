@@ -25,11 +25,15 @@
 
 *Tirar isso aqui quando for para o seu projeto*
 
-- Não se esqueça que você ainda precisa configurar o Sentry e o NewRelic para sua aplicacao.
+### Não se esqueça que você ainda precisa configurar o Sentry e o NewRelic para sua aplicacao.
 
-- Se sua aplicação não for só API e tiver uma parte WEB, primerio la em `application.rb` comente a linha `config.api_only = true`, e não se esqueça de descomentar as gems de Assets la no Gemfile e depois de rodar um `bundle install` rode o comando `rails webpacker:install`.
+> Se sua aplicação não for só API e tiver uma parte WEB execute os seguintes passos:
+- Primerio la em `application.rb` troque a linha `config.api_only = true` por `config.api_only = false`;
+- EntÃO descomente as gems de `Assets` la no Gemfile e rode um `bundle install` para instalar as dependencias necessarias;
+- Entao rode o comando `rails webpacker:install` que vai fazer todo o setup necessario pra seu front.
+- Leia mais sobre o Webpacker aqui https://github.com/rails/webpacker
 
-- Não esqueça de gerar a master key do seu projeto e colocar ela no Git e depois adicionar no gitignore de novo
+> Não esqueça de gerar a master key do seu projeto e colocar ela no Git e depois adicionar no gitignore de novo
 
 Mudar o nome do projeto em `application.rb` la está `ProjectName`.
 O credentials do projeto esta no gitignore, então adiciona ele apenas no servidor.

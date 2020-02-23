@@ -1,21 +1,9 @@
-image: victorcostaoliveira/cucumber_jera:1.1.0
-
 before_script:
-  # - apt-get install libtag1-dev
-  # Install ssh-agent if not already installed, it is required by Docker.
-  # (change apt-get to yum if you use a CentOS-based image)
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  # Run ssh-agent (inside the build environment)
   - eval $(ssh-agent -s)
-  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+  - ssh-add <(echo "$PROD_PRIVATE_KEY")
   - ssh-add <(echo "$SIF_PRIVATE_KEY")
   - ssh-add -l
-  # To start rvm in docker image
-  - source /usr/local/rvm/scripts/rvm
-  # For Docker builds disable host key checking. Be aware that by adding that
-  # you are suspectible to man-in-the-middle attacks.
-  # WARNING: Use this only with the Docker executor, if you use it with shell
-  # you will overwrite your user's SSH config.
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
@@ -27,47 +15,54 @@ before_script:
 
 variables:
   # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
-  MYSQL_DATABASE: nome_da_aplicacao_test
+  MYSQL_DATABASE: rock_in_rio_test
   MYSQL_ROOT_NAME: root
   MYSQL_ROOT_PASSWORD: root
   DANGER_GITLAB_API_TOKEN: yZ8FbwAp-RRSfsAZAY-B # To Danger bot
+  RUBY_VERSION: ruby-2.6.3
+  GEMSET_NAME: rock_in_rio
 
 danger:
+  image: ruby:2.6.3 #Mudar a versão conforme necessario
   only:
     - merge_requests
   script:
-  - bundle install
-  - bundle exec danger
+    - gem install bundler
+    - bundle install
+    - bundle exec danger
+  cache:
+    paths:
+      - vendor/ruby
 
 cucumber:
   <<: *only-default
+  image: victorcostaoliveira/jera_image:latest
   script:
-  - service mysql start
-  - gem install bundler
-  - cp config/database.gitlab-ci.yml config/database.yml
-  - bundle install --path vendor
-  - rails db:drop db:create db:migrate RAILS_ENV=test
-  - bundle exec cucumber
-  artifacts:
-    paths:
-      - results/
+    - chown -R mysql:mysql /var/lib/mysql /var/run/mysqld #linha nova que resolve o problema
+    - source /etc/profile.d/rvm.sh #linha semi nova(antes ela estava no before_script), so pra incializar o RVM dentro do container
+    - service mysql start
+    - rvm install $RUBY_VERSION
+    - rvm use $RUBY_VERSION@$GEMSET_NAME --create
+    - gem install bundler
+    - cp config/database.gitlab-ci.yml config/database.yml
+    - bundle install
+    - rails db:drop db:create db:migrate RAILS_ENV=test
+    - cucumber
 
 staging:
+  image: victorcostaoliveira/jera_image:latest
   type: deploy
   script:
   - gem install mina
   - mina deploy ENV=staging
   only:
   - develop
+
 production:
+  image: victorcostaoliveira/jera_image:latest
   type: deploy
   script:
   - gem install mina
   - mina deploy ENV=production
   only:
   - master
-cache:
-  paths:
-  - vendor/apt
-  - vendor/ruby
-
