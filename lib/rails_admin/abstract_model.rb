@@ -1,6 +1,7 @@
 module RailsAdmin
   class AbstractModel::StatementBuilder
 
+    # Não salvar datas do tipo Date como DateTime (tempo zerado)
     def build_statement_for_datetime_or_timestamp
       start_date, end_date = get_filtering_duration
 
