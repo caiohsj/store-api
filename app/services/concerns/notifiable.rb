@@ -10,18 +10,19 @@ module Concerns::Notifiable
   end
 
   private
-    def notify(params, kind)
-      begin
-        Raven.extra_context(infos: params)
-        if kind.eql?(:event)
-          Raven.send_event(params)
-        else
-          Raven.capture_exception(params[:message])
-        end
-      rescue StandardError => e
-        puts e.message
-        puts e.backtrace.inspect
+
+  def notify(params, kind)
+    begin
+      Raven.extra_context(infos: params)
+      if kind.eql?(:event)
+        Raven.send_event(params)
+      else
+        Raven.capture_exception(params[:message])
       end
+    rescue StandardError => e
+      puts e.message
+      puts e.backtrace.inspect
     end
+  end
 end
 
