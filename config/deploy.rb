@@ -27,7 +27,9 @@ elsif fetch(:environment) == 'production'
   set :deploy_to, "/var/www/#{fetch(:user)}/production"
 end
 
-set :sidekiq_pid, "#{fetch(:deploy_to)}/current/tmp/pids/sidekiq.pid"
+set :pid_folder, "#{fetch(:deploy_to)}/current/tmp/pids"
+set :sidekiq_pid, "#{fetch(:pid_folder)}/sidekiq.pid"
+set :puma_pid, "#{fetch(:pid_folder)}/puma.pid"
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'public/system', 'tmp/pids', 'tmp/sockets')
 
@@ -44,7 +46,7 @@ task :remote_environment do
 end
 
 task :restart => :remote_environment do
-  pidfile = "#{fetch(:deploy_to)}/current/tmp/pids/unicorn.pid"
+
   command "if [ -f #{pidfile} ]; then kill -s USR2 `cat #{pidfile}`;fi"
   command "if [ -f #{fetch(:sidekiq_pid)} ]; then kill -s USR2 `cat #{fetch(:sidekiq_pid)}`;fi"
 end
@@ -89,6 +91,8 @@ task :setup do
     command %[echo "#{fetch(:ruby_version)}" > "#{fetch(:deploy_to)}/shared/.ruby-version"]
 
     command %[echo "#{fetch(:gemset)}" > "#{fetch(:deploy_to)}/shared/.ruby-gemset"]
+
+    command %[touch "#{fetch(:deploy_to)}/shared/log/sidekiq.log"]
   end
 end
 
@@ -102,7 +106,7 @@ task :deploy do
     command %[echo "DEPLOY_TO ---> #{fetch(:deploy_to)}"]
     command %[echo "SHARED PATH ---> #{fetch(:shared_path)}"]
     command %[bundle install --without development test]
-    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'unicorn_rails'
+    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'puma_rails'
     invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'sidekiq'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
