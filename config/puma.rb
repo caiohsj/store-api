@@ -37,9 +37,9 @@ if ENV['RAILS_ENV'] == 'development'
 else
   # Change to match your CPU core count
   if app_dir.include?('production')
-    worker_processes 4
+    workers 1
   else
-    worker_processes 2
+    workers 1
   end
 
   # Min and Max threads per worker

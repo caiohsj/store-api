@@ -106,7 +106,7 @@ task :deploy do
     command %[echo "DEPLOY_TO ---> #{fetch(:deploy_to)}"]
     command %[echo "SHARED PATH ---> #{fetch(:shared_path)}"]
     command %[bundle install --without development test]
-    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'puma_rails'
+    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'puma'
     invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'sidekiq'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'

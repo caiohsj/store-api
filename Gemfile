@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.0'
 
 #Backend
 gem 'mysql2', '>= 0.4.4'
@@ -48,6 +48,10 @@ gem 'danger-gitlab'
 gem 'danger-rubocop'
 gem 'reek'
 gem 'danger-reek', :git => "https://github.com/VictorCostaOliveira/danger-reek"
+
+# Facebook
+gem 'koala', '~> 3.0'
+gem 'omniauth-facebook', '~> 4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

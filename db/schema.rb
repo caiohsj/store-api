@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2019_11_12_123130) do
 
+  create_table "minimum_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "platform"
+    t.integer "version_number"
+    t.integer "build_number"
+    t.boolean "required", default: false
+    t.boolean "latest", default: true
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
