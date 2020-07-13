@@ -7,6 +7,10 @@ class Api::V1::SessionsController < Api::ApiController
     reponse_handler(Users::FacebookAuthService.call(fb_auth_params: fb_auth_params))
   end
 
+  def apple_auth
+    reponse_handler(Users::AppleAuthService.call(apple_auth_params: apple_auth_params))
+  end
+
   private
 
   def session_params
@@ -15,6 +19,10 @@ class Api::V1::SessionsController < Api::ApiController
 
   def fb_auth_params
     params.permit(:access_token)
+  end
+
+  def apple_auth_params
+    params.permit(:name, :email, :access_token)
   end
 
   def reponse_handler(response)
