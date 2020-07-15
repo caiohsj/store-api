@@ -71,7 +71,7 @@ Caso opte por não utilizar Git Flow, é necessário fazer o download da branch 
 
 Dentro da pasta do projeto, crie os arquivos `.ruby-version` e `.ruby-gemset` e depois entre novamente na pasta para carregar as novas configurações.
 ```bash
-$ echo "ruby-2.6.3" > .ruby-version && echo "nome-do-projeto" > .ruby-gemset
+$ echo "<RUBY-VERSION>" > .ruby-version && echo "nome-do-projeto" > .ruby-gemset
 $ cd .
 ```
 

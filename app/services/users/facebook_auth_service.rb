@@ -1,4 +1,4 @@
-class Users::FacebookAuthService < BusinessProcess::Base
+class ::Users::FacebookAuthService < BusinessProcess::Base
   needs :fb_auth_params
   needs :device_params
 
@@ -18,9 +18,9 @@ class Users::FacebookAuthService < BusinessProcess::Base
     graph = Koala::Facebook::API.new(fb_auth_params[:access_token])
     begin
       @facebook_user = graph.get_object('me', fields: [:name, :email])
-    rescue Execption
+    rescue Exception
       fail(:facebook_auth_error)
-    rescue Execption
+    rescue Exception
       fail(:unknow_error)
     end
   end
