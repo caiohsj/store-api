@@ -1,9 +1,3 @@
-.only-default: &only-default
-  only:
-    - merge_requests
-    - develop
-    - master
-
 variables:
   MYSQL_DATABASE: <TEST_DB_NAME>
   MYSQL_ROOT_NAME: root
@@ -21,11 +15,16 @@ danger:
     - bundle install
     - bundle exec danger
   cache:
+    # https://docs.gitlab.com/ee/ci/caching/#sharing-caches-across-the-same-branch
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - vendor/ruby
 
 cucumber:
-  <<: *only-default
+  only:
+    - merge_requests
+    - develop
+    - master
   image: victorcostaoliveira/jera_image:1.1.0
   script:
     - chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
@@ -37,15 +36,17 @@ cucumber:
     - rvm use $RUBY_VERSION@$GEMSET_NAME --create
     - gem install bundler
     - cp config/database.gitlab-ci.yml config/database.yml
-    - bundle install
-    - rails db:drop db:create db:migrate RAILS_ENV=test
-    - cucumber
+    - bundle install -j $(nproc) --path vendor/ruby
+    - bundle exec rails db:drop db:create db:migrate RAILS_ENV=test
+    - bundle exec cucumber
   cache:
+    # https://docs.gitlab.com/ee/ci/caching/#sharing-caches-across-the-same-branch
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - vendor/ruby
 
 staging:
-  image: victorcostaoliveira/jera_image:1.1.0
+  image: mwallasch/docker-ruby-node
   type: deploy
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -60,7 +61,7 @@ staging:
     - develop
 
 production:
-  image: victorcostaoliveira/jera_image:1.1.0
+  image: mwallasch/docker-ruby-node
   type: deploy
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
