@@ -1,68 +1,76 @@
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$PROD_PRIVATE_KEY")
-  - ssh-add <(echo "$SIF_PRIVATE_KEY")
-  - ssh-add -l
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-.only-default: &only-default
-  only:
-    - merge_requests
-    - develop
-    - master
-
 variables:
-  # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
-  MYSQL_DATABASE: rock_in_rio_test
+  MYSQL_DATABASE: <TEST_DB_NAME>
   MYSQL_ROOT_NAME: root
   MYSQL_ROOT_PASSWORD: root
   DANGER_GITLAB_API_TOKEN: yZ8FbwAp-RRSfsAZAY-B # To Danger bot
-  RUBY_VERSION: ruby-2.6.3
-  GEMSET_NAME: rock_in_rio
+  RUBY_VERSION: <PROJECT_RUBY_VERSION>
+  GEMSET_NAME: <GEMSET_NAME>
 
 danger:
-  image: ruby:2.6.3 #Mudar a versão conforme necessario
+  image: <PROJECT_RUBY_VERSION>
   only:
     - merge_requests
   script:
     - gem install bundler
-    - bundle install
+    - bundle install -j $(nproc) --path vendor/ruby
     - bundle exec danger
   cache:
+    # https://docs.gitlab.com/ee/ci/caching/#sharing-caches-across-the-same-branch
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - vendor/ruby
 
 cucumber:
-  <<: *only-default
-  image: victorcostaoliveira/jera_image:latest
+  only:
+    - merge_requests
+    - develop
+    - master
+  image: victorcostaoliveira/jera_image:1.1.0
   script:
-    - chown -R mysql:mysql /var/lib/mysql /var/run/mysqld #linha nova que resolve o problema
-    - source /etc/profile.d/rvm.sh #linha semi nova(antes ela estava no before_script), so pra incializar o RVM dentro do container
+    - chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+    - source /etc/profile.d/rvm.sh
     - service mysql start
+    - apt-get update
+    - apt-get -y install yarn
     - rvm install $RUBY_VERSION
     - rvm use $RUBY_VERSION@$GEMSET_NAME --create
     - gem install bundler
     - cp config/database.gitlab-ci.yml config/database.yml
-    - bundle install
-    - rails db:drop db:create db:migrate RAILS_ENV=test
-    - cucumber
+    - bundle install -j $(nproc) --path vendor/ruby
+    - bundle exec rails db:drop db:create db:migrate RAILS_ENV=test
+    - bundle exec cucumber
+  cache:
+    # https://docs.gitlab.com/ee/ci/caching/#sharing-caches-across-the-same-branch
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - vendor/ruby
 
 staging:
-  image: victorcostaoliveira/jera_image:latest
+  image: mwallasch/docker-ruby-node
   type: deploy
   script:
-  - gem install mina
-  - mina deploy ENV=staging
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SERVER_PRIVATE_KEY")
+    - ssh-add -l
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - gem install mina
+    - mina deploy ENV=staging
   only:
-  - develop
+    - develop
 
 production:
-  image: victorcostaoliveira/jera_image:latest
+  image: mwallasch/docker-ruby-node
   type: deploy
   script:
-  - gem install mina
-  - mina deploy ENV=production
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SERVER_PRIVATE_KEY")
+    - ssh-add -l
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - gem install mina
+    - mina deploy ENV=production
   only:
-  - master
+    - master

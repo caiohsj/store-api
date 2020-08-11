@@ -1,3 +1,3 @@
-# class MinimumVersion < ApplicationRecord
-#   # include RailsAdmin::MinimumVersion
-# end
+class MinimumVersion < ApplicationRecord
+  include RailsAdmin::MinimumVersion
+end
