@@ -46,8 +46,7 @@ task :remote_environment do
 end
 
 task :restart => :remote_environment do
-
-  command "if [ -f #{pidfile} ]; then kill -s USR2 `cat #{pidfile}`;fi"
+  command "if [ -f #{fetch(:puma_pid)} ]; then kill `cat #{fetch(:puma_pid)}`;fi"
   command "if [ -f #{fetch(:sidekiq_pid)} ]; then kill -s USR2 `cat #{fetch(:sidekiq_pid)}`;fi"
 end
 
