@@ -27,6 +27,8 @@ cucumber:
     - master
   image: victorcostaoliveira/jera_image:1.1.0
   script:
+    - mv /usr/sbin/mysqld /usr/bin/mysqld
+    - ln -nfs /usr/bin/mysqld /usr/sbin/mysqld
     - chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
     - source /etc/profile.d/rvm.sh
     - service mysql start
