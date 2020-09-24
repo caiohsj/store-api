@@ -105,6 +105,11 @@ $ rake rspec
 $ rake cucumber
 ```
 
+**Documentação no Postman**
+Todo projeto de API deve ser documentado.
+Durante o setup, é importante criar uma conta no Postman para o projeto.
+- Não esqueça de editar os Merge Request Templates com o link da documentação :D
+
 **Start do servidor**
 ```bash
 $ rails s
