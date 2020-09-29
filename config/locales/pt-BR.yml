@@ -285,6 +285,10 @@ pt-BR:
       formats:
         long: “%d/%m/%Y às %H:%M”
   activerecord:
+    models:
+      user:
+        one: Usuário
+        other: Usuários
     attributes:
       user:
         password: Senha
