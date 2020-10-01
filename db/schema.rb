@@ -10,9 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_123130) do
+ActiveRecord::Schema.define(version: 2020_10_01_211146) do
 
-  create_table "minimum_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "jera_push_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "token"
+    t.string "platform"
+    t.string "pushable_type"
+    t.bigint "pushable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform"], name: "index_jera_push_devices_on_platform"
+    t.index ["pushable_type", "pushable_id"], name: "index_jera_push_devices_on_pushable_type_and_pushable_id"
+    t.index ["token", "platform"], name: "index_jera_push_devices_on_token_and_platform", unique: true
+    t.index ["token"], name: "index_jera_push_devices_on_token"
+  end
+
+  create_table "jera_push_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "content"
+    t.text "broadcast_result"
+    t.string "status"
+    t.string "kind"
+    t.string "topic"
+    t.string "firebase_id"
+    t.string "error_message"
+    t.integer "failure_count", default: 0
+    t.integer "success_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jera_push_messages_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "device_id"
+    t.integer "message_id"
+    t.string "status"
+    t.string "error_message"
+    t.string "firebase_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["device_id", "message_id"], name: "jera_push_index_messages_id_devices_id", unique: true
+    t.index ["device_id"], name: "index_jera_push_messages_devices_on_device_id"
+    t.index ["message_id"], name: "index_jera_push_messages_devices_on_message_id"
+  end
+
+  create_table "minimum_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "platform"
     t.integer "version_number"
     t.integer "build_number"
@@ -23,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_123130) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -41,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_123130) do
     t.string "avatar"
     t.string "document"
     t.string "platform"
+    t.string "provider"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
