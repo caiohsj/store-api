@@ -12,6 +12,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'sidekiq'
 # gem 'sidekiq-cron', '~> 1.1'
 # gem 'sidekiq-status'
+# gem 'redis-namespace'
+# gem 'redis'
 
 # Descomentar caso sua aplicaçao for ter front-end
 # Assets
@@ -22,10 +24,11 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # Facilities
 gem 'devise'
-gem 'jera_push'
+gem 'jera_push', git: 'https://github.com/jera/jera-push'
 gem 'business_process'
 gem 'rails_admin', '~> 2.0'
-gem "cpf_cnpj"
+gem 'cpf_cnpj'
+gem 'enumerize'
 
 # API
 gem 'active_model_serializers', '~> 0.10.0'

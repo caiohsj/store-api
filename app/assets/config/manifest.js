@@ -1,1 +1,1 @@
-manifest.js
+//= link_tree ../images

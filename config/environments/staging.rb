@@ -83,21 +83,22 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  # config.action_mailer.asset_host = Rails.application.secrets.assets_host
+  # config.action_mailer.asset_host = Rails.application.credentials[Rails.env.to_sym][:app_domain]
+  # config.action_controller.asset_host = Rails.application.credentials[Rails.env.to_sym][:app_domain]
   # config.action_mailer.default_url_options = {
-  #   :host => Rails.application.secrets.app_domain,
-  #   :only_path => false
+  #   host: Rails.application.credentials[Rails.env.to_sym][:app_domain],
+  #   only_path: false
   # }
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.perform_deliveries = true
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.smtp_settings = {
-  #   :address => 'smtp.sendgrid.net',
-  #   :port => '25',
-  #   :domain => Rails.application.secrets.app_domain,
-  #   :authentication => :plain,
-  #   :user_name => Rails.application.secrets.sendgrid_username,
-  #   :password => Rails.application.secrets.sendgrid_password
+  #   address: 'smtp.sendgrid.net',
+  #   port: '25',
+  #   domain: Rails.application.credentials[Rails.env.to_sym][:app_domain],
+  #   authentication: :plain,
+  #   user_name: Rails.application.credentials[Rails.env.to_sym][:sendgrid_username],
+  #   password: Rails.application.credentials[Rails.env.to_sym][:sendgrid_password]
   # }
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
