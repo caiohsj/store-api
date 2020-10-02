@@ -36,6 +36,7 @@ if ENV['RAILS_ENV'] == 'development'
   plugin :tmp_restart
 else
   # Change to match your CPU core count
+  rails_env = app_dir.include?('production') ? 'production' : 'staging'
   if app_dir.include?('production')
     workers 1
   else
@@ -45,7 +46,7 @@ else
   # Min and Max threads per worker
   threads 1, 6
 
-  environment app_dir.include?('production') ? 'production' : 'staging'
+  environment rails_env
 
   # Set up socket location
   bind "unix://#{app_dir}/tmp/sockets/puma.sock"
@@ -58,7 +59,6 @@ else
   state_path "#{app_dir}/tmp/pids/puma.state"
 
   activate_control_app
-
   on_worker_boot do
     require "active_record"
     if defined?(ActiveRecord::Base)

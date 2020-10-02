@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  # mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users, only: []
 
   namespace :api, defaults: { format: :json } do
