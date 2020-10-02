@@ -1,4 +1,4 @@
-module Concerns::Notifiable
+module ::Notifiable
   extend ActiveSupport::Concern
 
   def notify_fail(message: nil, params: nil, resource: nil, errors: [])

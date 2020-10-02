@@ -9,7 +9,7 @@ require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_mailbox/engine"
-require "action_text/engine"
+# require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 # require "sprockets/railtie"
@@ -31,6 +31,7 @@ module WebApiTemplate
     config.i18n.default_locale = :'pt-BR'
 
     config.autoload_paths << "#{Rails.root}/app/services/*"
+    config.eager_load_paths << "#{Rails.root}/app/services/*"
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.eager_load_paths << "#{Rails.root}/lib"

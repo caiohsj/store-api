@@ -1,6 +1,7 @@
+
 # Api template v1.0.0 - Web
 
-### índice de conteúdo
+### Índice de conteúdo
 --- 
 
 * [Setup do Projeto](#setup-do-projeto)
@@ -15,40 +16,45 @@
 
 ### Dependências
 
- - Ruby v2.6.3
+ - Ruby v2.7,0
      - Caso não tenha Ruby intalado em sua máquina, recomendamos o uso do [RVM](https://rvm.io/) para a instalação do mesmo.
- - Rails v5.2.0
+ - Rails v6.0.3
  - MySQL >= 5.6 
  - Git e Git Flow
 
-### Importante
+### Importante, LEIA POR FAVOR e remova essa parte do seu readme depois que não for mais utilizar essas informações. 
 
-*Tirar isso aqui quando for para o seu projeto*
 
-### Não se esqueça que você ainda precisa configurar o Sentry e o NewRelic para sua aplicacao.
+#### Não se esqueça que você ainda precisa configurar o Sentry e o NewRelic para sua aplicacao.
 
-> Se sua aplicação não for só API e tiver uma parte WEB execute os seguintes passos:
-- Primerio la em `application.rb` troque a linha `config.api_only = true` por `config.api_only = false`;
-- EntÃO descomente as gems de `Assets` la no Gemfile e rode um `bundle install` para instalar as dependencias necessarias;
-- Entao rode o comando `rails webpacker:install` que vai fazer todo o setup necessario pra seu front.
-- Leia mais sobre o Webpacker aqui https://github.com/rails/webpacker
+Se sua aplicação **não** for só API e tiver uma parte WEB execute os seguintes passos:
+  - Primerio la em `application.rb` troque a linha `config.api_only = true` por `config.api_only = false`;
+  - Então descomente as gems de `Assets` la no Gemfile e rode um `bundle install` para instalar as dependencias necessarias;
+  - Entao rode o comando `rails webpacker:install` que vai fazer todo o setup necessario pra seu front.
+  - Para funcionar no ambiente de staging, você vai precisar criar na pasta do webpack um arquivo de `staging.js`, você pode se basear no `production.js` para fazer isso. 
+  - Leia mais sobre o Webpacker aqui https://github.com/rails/webpacker
 
-> Não esqueça de gerar a master key do seu projeto e colocar ela no Git e depois adicionar no gitignore de novo
+- Você deve gerar a `master.key` do seu projeto e colocar ela no Git (fazer um commit) e depois adicionar no `.gitignore` de novo.
 
-Mudar o nome do projeto em `application.rb` la está `ProjectName`.
-O credentials do projeto esta no gitignore, então adiciona ele apenas no servidor.
-Na hora de fazer o setup do banco, não esqueça de mudar o nome para o nome do seu projeto.
+- Mudar o nome do projeto em `application.rb` la está `ProjectName`.
 
-Na migration que cria o User foram criadas as seguintes linhas
-Isso ai é o que o devise coloca pra usar facebook ou algum outro proider de login
-Para entender melhor como funciona https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
-```
+- O credentials do projeto esta no gitignore, então adiciona ele apenas no servidor.
+
+- Na hora de fazer o setup do banco, não esqueça de mudar o nome para o nome do seu projeto.
+
+- Na migration que cria o User foram criadas as seguintes linhas:
+
+```ruby
 # Omniauth
 # t.string :provider, :null => false, :default => "email"
 # t.string :uid, :null => false, :default => ""
 ```
 
-*Tirar isso aqui quando for para o seu projeto*
+- Elas são ciradas pelo devise pra usar facebook ou algum outro provider de login (ex. google, apple). Para entender melhor como funciona https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+
+**** remover até aqui *****
+
+**************************
 
 **Download**
 
@@ -71,7 +77,7 @@ Caso opte por não utilizar Git Flow, é necessário fazer o download da branch 
 
 Dentro da pasta do projeto, crie os arquivos `.ruby-version` e `.ruby-gemset` e depois entre novamente na pasta para carregar as novas configurações.
 ```bash
-$ echo "ruby-2.6.3" > .ruby-version && echo "nome-do-projeto" > .ruby-gemset
+$ echo "<RUBY-VERSION>" > .ruby-version && echo "nome-do-projeto" > .ruby-gemset
 $ cd .
 ```
 
@@ -105,28 +111,17 @@ $ rake rspec
 $ rake cucumber
 ```
 
+**Documentação no Postman**
+Todo projeto de API deve ser documentado.
+Durante o setup, é importante criar uma conta no Postman para o projeto.
+- Não esqueça de editar os Merge Request Templates com o link da documentação :D
+
 **Start do servidor**
 ```bash
 $ rails s
 ```
 
-## Versionamento
-
-> Este projeto segue o [versionamento semântico](http://semver.org/lang/pt-BR/)
-
-Dado um número de versão MAJOR.MINOR.PATCH, incremente a:
-
-1. versão Maior(MAJOR): quando fizer mudanças incompatíveis na API,
-1. versão Menor(MINOR): quando adicionar funcionalidades mantendo compatibilidade, e
-1. versão de Correção(PATCH): quando corrigir falhas mantendo compatibilidade.
-
-ex: 2.4.0
-
-Rótulos adicionais para pré-lançamento(pre-release) e metadados de construção(build) 
-estão disponíveis como extensão ao formato MAJOR.MINOR.PATCH.
-
-ex: 1.0.0-rc1
-
-## Changelog
 
 ## Documentação da API
+
+- Coloque a documentação da API aqui, ex: postman e informações importantes sobre o projeto. 

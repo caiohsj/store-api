@@ -1,3 +1,5 @@
+require Rails.root.join('lib', 'rails_admin', 'abstract_model.rb')
+
 RailsAdmin.config do |config|
   config.main_app_name = ['WebTemplate', 'Admin']
 
