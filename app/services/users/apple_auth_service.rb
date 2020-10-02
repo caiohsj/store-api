@@ -39,19 +39,19 @@ class Users::AppleAuthService < BusinessProcess::Base
   end
 
   def auth_apple_user
-    @apple_user = JWT.decode(@private_key, @public_key, true, { algorithm: @type_key })[0]
+    @apple_user = JWT.decode(@private_key, @public_key, true, { algorithm: @type_key }).first
   rescue StandardError
     fail(:apple_auth_error)
   end
 
   def find_apple_user
-    @user = User.find_by(provider: 'apple', uid: @apple_user['user_id'])
+    @user = User.find_by(provider: 'apple', uid: apple_auth_params['user_id'])
   end
 
   def find_user
     return if @user.present?
 
-    @user = User.find_by(provider: 'email', email: @apple_user['email'])
+    @user = User.find_by(provider: 'email', email: apple_auth_params['email'])
   end
 
   def created_user_params
@@ -64,12 +64,20 @@ class Users::AppleAuthService < BusinessProcess::Base
     fail([I18n.t('services.session_service.errors.user_not_found')]) unless created_user_params
 
     @user = User.create(provider: 'apple',
-                        uid: @apple_user['user_id'],
-                        email: @apple_user['email'],
-                        name: apple_auth_params[:name],
+                        uid: apple_auth_params['user_id'],
+                        email: define_email,
+                        name: define_name,
                         password: Devise.friendly_token[0, 20])
 
     fail(@user.errors.full_messages) if @user.errors.present?
+  end
+
+  def define_email
+    apple_auth_params[:email].present? ? apple_auth_params[:email] : "#{@apple_user['email']}"
+  end
+
+  def define_name
+    apple_auth_params[:name].present? ? apple_auth_params[:name] : "#{apple_auth_params[:user_id]}"
   end
 
 end

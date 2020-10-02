@@ -22,7 +22,7 @@ class Api::V1::SessionsController < Api::ApiController
   end
 
   def apple_auth_params
-    params.permit(:name, :email, :access_token)
+    params.permit(:name, :email, :apple_token, :user_id)
   end
 
   def reponse_handler(response)
