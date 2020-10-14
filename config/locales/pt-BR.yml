@@ -320,4 +320,9 @@ pt-BR:
         user_not_found: Usuário não encontrado
   mail:
     recovery_password:
-      subject: Sujeito
+      subject: Api Template - Recuperação de senha
+      mail_to: "%{user_name} <%{email}>"
+  mailers:
+    automatic_message: Isso é uma mensagem automatica. Não responda esse email.
+    copyright_message: "Itron - Todos os direitos reservados - Copyright © 2020"
+    greetings: "Olá %{name}, "
