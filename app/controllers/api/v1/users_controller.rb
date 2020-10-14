@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::ApiController
-  before_action :authenticate_user_from_token!, except: [:create]
+  before_action :authenticate_user_from_token!, except: [:create, :recovery_password]
 
   def create
     user = User.new(user_params)
@@ -25,10 +25,28 @@ class Api::V1::UsersController < Api::ApiController
     respond_with current_user, location: '', scope: headers
   end
 
+  def recovery_password
+    recovery_service = ::Users::SendRecoveryPasswordService.call(email: recovery_password_params[:email])
+    byebug
+    response_handler(recovery_service)
+  end
+
   private
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def recovery_password_params
+    params.permit(:email)
+  end
+
+  def response_handler(service)
+    if service.success?
+      render_success
+    else
+      render json: service.error, root: '', status: 422
+    end
   end
 
 end

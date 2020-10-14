@@ -318,3 +318,6 @@ pt-BR:
       errors:
         invalid_params: Email ou senha invalidos
         user_not_found: Usuário não encontrado
+  mail:
+    recovery_password:
+      subject: Sujeito
