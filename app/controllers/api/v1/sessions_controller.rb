@@ -8,7 +8,7 @@ class Api::V1::SessionsController < Api::ApiController
   end
 
   def apple_auth
-    reponse_handler(Users::AppleAuthService.call(apple_auth_params: apple_auth_params))
+    reponse_handler(Users::AppleService.call(apple_auth_params: apple_auth_params))
   end
 
   private
