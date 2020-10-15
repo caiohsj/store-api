@@ -11,6 +11,7 @@ Rails.application.routes.draw do
           post :sign_in, controller: :sessions, action: :create
           post :facebook_auth, controller: :sessions, action: :facebook_auth
           put :recover_password
+          post :reset_password
           put :update_password, controller: :passwords, action: :update
         end
       end

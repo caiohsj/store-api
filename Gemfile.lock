@@ -315,6 +315,8 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
+    modulejs-rails (2.2.0.0)
+      railties (>= 4.0)
     msgpack (1.3.3)
     multi_json (1.15.0)
     multi_test (0.1.2)
@@ -366,6 +368,8 @@ GEM
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.3)
@@ -458,8 +462,17 @@ GEM
       ffi (~> 1.9)
     ruby_dep (1.5.0)
     rubyzip (1.3.0)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+    sass-rails (5.1.0)
+      railties (>= 5.2.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -480,7 +493,7 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (4.0.2)
+    sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.2)
@@ -509,6 +522,10 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (~> 1.0)
       selenium-webdriver (~> 3.0)
+    webpacker (4.3.0)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -543,6 +560,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mina
   mina-sidekiq
+  modulejs-rails
   mysql2 (>= 0.4.4)
   newrelic_rpm
   oj
@@ -555,12 +573,14 @@ DEPENDENCIES
   reek
   rmagick
   rspec-rails
+  sass-rails (~> 5)
   selenium-webdriver
   sentry-raven
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   webdrivers (~> 3.0)
+  webpacker (~> 4.0)
 
 RUBY VERSION
    ruby 2.7.0p0

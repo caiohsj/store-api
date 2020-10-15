@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::ApiController
-  before_action :authenticate_user_from_token!, except: [:create, :recover_password]
+  before_action :authenticate_user_from_token!, except: [:create, :recover_password, :reset_password]
 
   def create
     user = User.new(user_params)
@@ -30,6 +30,15 @@ class Api::V1::UsersController < Api::ApiController
     return not_found_error unless user.present?
 
     ::Users::RecoverPassword.new(user).call
+    render_success
+  end
+
+  def reset_password
+    user = User.find_by(email: params[:email])
+
+    return render_not_found_error unless user.present?
+
+    user.send_reset_password_instructions
     render_success
   end
 
