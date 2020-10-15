@@ -292,7 +292,7 @@ pt-BR:
     attributes:
       user:
         password: Senha
-        email: Email
+        email: E-mail
         name: Nome
         document: Documento
     errors:
@@ -300,19 +300,19 @@ pt-BR:
         user:
           attributes:
             password:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
               too_short: muito pequena, minimo é 6
               too_long: muito Grande, máximo é 128
             name:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
             email:
               taken: já existe
-              blank: Não pode ficar em branco
-              invalid: Inválido
+              blank: não pode ficar em branco
+              invalid: inválido
             document:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
               taken: já existe
-              invalid: Inválido
+              invalid: inválido
   services:
     session_service:
       errors:
