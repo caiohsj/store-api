@@ -16,38 +16,26 @@ class TestClient
   end
 
   def make_get(endpoint, query = {})
-    response = handle_response(get(endpoint,
-                                  query,
-                                  headers))
-    response
+    handle_response(get(endpoint, query, headers))
   end
 
   def make_post(endpoint, body = {})
-    response = handle_response(post(endpoint,
-                                    body,
-                                    headers))
-    response
+    handle_response(post(endpoint, body, headers))
   end
 
   def make_put(endpoint, body = nil)
-    response = handle_response(put(endpoint,
-                                   body,
-                                   headers))
-    response
+    handle_response(put(endpoint, body, headers))
   end
 
   def make_delete(endpoint)
-    response = handle_response(delete(endpoint,
-                                      {},
-                                      headers))
-    response
+    handle_response(delete(endpoint, {}, headers))
   end
 
   def app
     Rails.application
   end
 
-    def headers
+  def headers
     {
       'HTTP_USER_TOKEN' => @token,
       'HTTP_USER_EMAIL' => @email
