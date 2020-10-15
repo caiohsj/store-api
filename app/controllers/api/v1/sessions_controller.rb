@@ -19,6 +19,7 @@ class Api::V1::SessionsController < Api::ApiController
 
   def reponse_handler(response)
     if response.success?
+      sign_in response.result, store: false
       respond_with response.result, location: '', scope: response.result.refresh_token
     else
       render_unprocessable_entity_error(response.error)
