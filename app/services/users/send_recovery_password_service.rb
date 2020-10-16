@@ -33,7 +33,6 @@ class Users::SendRecoveryPasswordService < BusinessProcess::Base
   end
 
   def send_recovery_password
-    byebug
     PasswordMailer.send_new_password_mailer(@user).deliver_now
   end
 

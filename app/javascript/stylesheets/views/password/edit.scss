@@ -1,18 +1,14 @@
 @media (min-width: 320px) {
   .edit-password {
-    .navbar {
-      display: none;
-    }
     .container {
       h1 {
         font-size: 24px;
-        margin-left: 16px;
-        margin-top: 84px;
-        margin-bottom: 0;
+        margin: 84px 16px 0 0;
         font-family: "MontserratSemiBold";
       }
 
       p {
+        margin: 8px 16px 0 44px;
         margin-top: 8px;
         color: #A3AEB2;
         margin-left: 16px;
@@ -102,7 +98,6 @@
     }
   }
 }
-
 @media (min-width: 992px) {
   .edit-password {
     display: grid;

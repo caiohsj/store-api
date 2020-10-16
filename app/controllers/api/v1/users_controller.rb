@@ -56,7 +56,7 @@ class Api::V1::UsersController < Api::ApiController
     if service.success?
       render_success
     else
-      render json: service.error, root: '', status: 422
+      render_unprocessable_entity_error(service.error)
     end
   end
 

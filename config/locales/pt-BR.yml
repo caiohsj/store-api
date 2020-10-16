@@ -355,9 +355,16 @@ pt-BR:
       subject: Api Template - Recuperação de senha
       mail_to: "%{user_name} <%{email}>"
   mailers:
-    automatic_message: Isso é uma mensagem automatica. Não responda esse email.
-    copyright_message: "Itron - Todos os direitos reservados - Copyright © 2020"
+    automatic_message: Isso é uma mensagem automática. Não responda esse email.
+    copyright_message: "API Template - Todos os direitos reservados - Copyright © AnoDoProjeto"
     greetings: "Olá %{name}, "
+    change_password_request: Você solicitou a troca de senha de sua conta em nosso aplicativo.
+    if_you_did_not_request_this: Não solicitou esta alteração?
+    your_password_will_not_be_changed_until: Ignore este e-mail. Sua senha não será alterada.
+    use_this_password: Utilize a senha a seguir para acessar seu aplicativo
+    after_access: Após acessar o aplicativo utilizando sua nova senha,
+    we_recommend: recomendamos fortemente
+    change_password: que altere sua senha nas configurações ou peça a um adimistrador para fazer essa alteração.
   views:
     passwords:
       edit:
