@@ -1,10 +1,10 @@
 class Api::V1::SessionsController < Api::ApiController
   def create
-    reponse_handler(Users::SessionService.call(session_params: session_params))
+    response_handler(Users::SessionService.call(session_params: session_params))
   end
 
   def facebook_auth
-    reponse_handler(Users::FacebookAuthService.call(fb_auth_params: fb_auth_params))
+    response_handler(Users::FacebookAuthService.call(fb_auth_params: fb_auth_params))
   end
 
   private
@@ -17,8 +17,9 @@ class Api::V1::SessionsController < Api::ApiController
     params.permit(:access_token)
   end
 
-  def reponse_handler(response)
+  def response_handler(response)
     if response.success?
+      sign_in response.result, store: false
       respond_with response.result, location: '', scope: response.result.refresh_token
     else
       render_unprocessable_entity_error(response.error)
