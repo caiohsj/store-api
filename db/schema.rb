@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_10_01_211146) do
 
-  create_table "jera_push_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "jera_push_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "token"
     t.string "platform"
     t.string "pushable_type"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211146) do
     t.index ["token"], name: "index_jera_push_devices_on_token"
   end
 
-  create_table "jera_push_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "jera_push_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "content"
     t.text "broadcast_result"
     t.string "status"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211146) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "jera_push_messages_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "jera_push_messages_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "device_id"
     t.integer "message_id"
     t.string "status"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211146) do
     t.index ["message_id"], name: "index_jera_push_messages_devices_on_message_id"
   end
 
-  create_table "minimum_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "minimum_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "platform"
     t.integer "version_number"
     t.integer "build_number"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_211146) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

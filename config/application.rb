@@ -29,6 +29,9 @@ module WebApiTemplate
 
     I18n.available_locales = ['pt-BR', :en]
     config.i18n.default_locale = :'pt-BR'
+    
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
 
     config.autoload_paths << "#{Rails.root}/app/services/*"
     config.eager_load_paths << "#{Rails.root}/app/services/*"
