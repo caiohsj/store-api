@@ -5,6 +5,8 @@ services:
     restart: always
     ports:
       - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
   redis:
     image: 'redis:5-alpine'
     command: redis-server
