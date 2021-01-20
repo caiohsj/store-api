@@ -1,6 +1,6 @@
 default: &default
   adapter: mysql2
-  database: <%= ENV["MYSQL_DATABASE"] || api_template %>
+  database: <%= ENV["MYSQL_DATABASE"] || 'api_template' %>
   username: <%= ENV["MYSQL_ROOT_NAME"] || 'root' %>
   password: <%= ENV["MYSQL_ROOT_PASSWORD"] || 'root' %>
   port: <%= ENV["MYSQL_DB_PORT"] || 3306 %>
