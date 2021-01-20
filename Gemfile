@@ -9,12 +9,13 @@ gem 'rails', '~> 6.0.2'
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'admin_model'
-# Descomentar caso necessario
-# gem 'sidekiq'
-# gem 'sidekiq-cron', '~> 1.1'
-# gem 'sidekiq-status'
-# gem 'redis-namespace'
-# gem 'redis'
+
+# Sidekiq
+gem 'sidekiq'
+gem 'sidekiq-cron', '~> 1.1'
+gem 'sidekiq-status'
+gem 'redis-namespace'
+gem 'redis'
 
 # Descomentar caso sua aplicaçao for ter front-end
 # Assets
