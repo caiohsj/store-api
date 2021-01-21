@@ -16,7 +16,7 @@
 
 ### Dependências
 
- - Ruby v2.7,0
+ - Ruby v2.7.0
      - Caso não tenha Ruby intalado em sua máquina, recomendamos o uso do [RVM](https://rvm.io/) para a instalação do mesmo.
  - Rails v6.0.3
  - MySQL >= 5.6 
@@ -73,7 +73,14 @@ Pressione Enter para todas as opções que serão exibidas. Depois disso você j
 
 Caso opte por não utilizar Git Flow, é necessário fazer o download da branch `develop` remota.
 
-**Configuração do Gemset**
+**Configuração do database.yml: PRECISA SER FEITO PARA USAR MANUALMENTE OU COM DOCKER!**
+
+Primeiramente é necessário criar o arquivo de setup de banco: `config/database.yml`.
+```bash
+$ cp config/database.example.yml config/database.yml
+```
+
+**Configuração do Gemset: CASO QUEIRA USAR MANUALMENTE**
 
 Dentro da pasta do projeto, crie os arquivos `.ruby-version` e `.ruby-gemset` e depois entre novamente na pasta para carregar as novas configurações.
 ```bash
@@ -81,19 +88,12 @@ $ echo "<RUBY-VERSION>" > .ruby-version && echo "nome-do-projeto" > .ruby-gemset
 $ cd .
 ```
 
-**Instalação das dependências**
+**Instalação das dependências: CASO QUEIRA USAR MANUALMENTE**
 
 A ferramenta `bundle` instalará todas as gems que foram definidas no Gemset do projeto.
 ```bash
 $ gem install bundle
 $ bundle install
-```
-
-**Configuração do banco de dados**
-
-Primeiramente é necessário criar o arquivo de setup de banco: `config/database.yml`.
-```bash
-$ cp config/database.example.yml config/database.yml
 ```
 
 Por fim, crie o banco de dados, rode as migrations e popule o mesmo.
@@ -102,25 +102,40 @@ Por fim, crie o banco de dados, rode as migrations e popule o mesmo.
 $ rails db:create db:migrate db:seed
 ```
 
+**Start do servidor manual**
+```bash
+$ rails s
+```
+
+**Start do servidor com docker**
+
+```bash
+$ docker build .
+$ docker-compose up
+$ docker-compose run application rake db:create db:migrate db:seed
+```
+
 **Testes**
 
 Utilizamos o framework de testes Rspec e cucumber para execução de testes.
 
+Manualmente: 
 ```bash
 $ rake rspec
 $ rake cucumber
+```
+
+Com Docker
+```bash
+$ docker-compose up
+$ docker-compose run application rake db:create db:migrate db:seed RAILS_ENV=test
+$ docker-compose run application spring rspec
 ```
 
 **Documentação no Postman**
 Todo projeto de API deve ser documentado.
 Durante o setup, é importante criar uma conta no Postman para o projeto.
 - Não esqueça de editar os Merge Request Templates com o link da documentação :D
-
-**Start do servidor**
-```bash
-$ rails s
-```
-
 
 ## Documentação da API
 
