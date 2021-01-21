@@ -12,3 +12,4 @@ RUN gem install bundler
 ADD ./Gemfile $APP_HOME
 RUN bundle install
 ADD . $APP_HOME
+RUN cp $APP_HOME/config/database.example.yml $APP_HOME/config/database.yml
