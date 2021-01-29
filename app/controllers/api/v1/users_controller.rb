@@ -29,8 +29,8 @@ class Api::V1::UsersController < Api::ApiController
     user = User.find_for_database_authentication(email: recover_password_params[:email])
     return not_found_error unless user.present?
 
-    ::Users::RecoverPassword.new(user).call
-    render_success
+    service = ::Users::RecoverPassword.call(user: user)
+    response_handler(service)
   end
 
   def reset_password
