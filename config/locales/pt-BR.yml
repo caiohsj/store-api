@@ -321,7 +321,7 @@ pt-BR:
     attributes:
       user:
         password: Senha
-        email: Email
+        email: E-mail
         name: Nome
         document: Documento
         reset_password_token: Token de recuperação de senha
@@ -334,13 +334,13 @@ pt-BR:
               too_short: muito pequena, tamanho mínimo é 6 caracteres
               too_long: muito grande, tamanho máximo é 128 caracteres
             name:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
             email:
               taken: já existe
-              blank: Não pode ficar em branco
-              invalid: Inválido
+              blank: não pode ficar em branco
+              invalid: inválido
             document:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
               taken: já existe
               invalid: Inválido
             reset_password_token:

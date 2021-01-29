@@ -29,9 +29,24 @@ module WebApiTemplate
 
     I18n.available_locales = ['pt-BR', :en]
     config.i18n.default_locale = :'pt-BR'
+    
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
 
     config.autoload_paths << "#{Rails.root}/app/services/*"
     config.eager_load_paths << "#{Rails.root}/app/services/*"
+
+    config.autoload_paths << "#{Rails.root}/lib"
+    config.eager_load_paths << "#{Rails.root}/lib"
+
+    config.autoload_paths << "#{Rails.root}/lib/*"
+    config.eager_load_paths << "#{Rails.root}/lib/*"
+
+    config.autoload_paths << "#{Rails.root}/lib/clients/"
+    config.eager_load_paths << "#{Rails.root}/lib/clients/"
+
+    config.eager_load_paths << "#{Rails.root}/lib/rails_admin/"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

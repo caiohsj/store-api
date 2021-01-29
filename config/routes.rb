@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           put :recover_password
           post :reset_password
           put :update_password, controller: :passwords, action: :update
+          post :apple_auth, controller: :sessions, action: :apple_auth
         end
       end
     end
