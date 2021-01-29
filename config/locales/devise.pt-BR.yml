@@ -1,0 +1,5 @@
+pt-BR:
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: "Alterar senha"

@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::ApiController
-  before_action :authenticate_user_from_token!, except: [:create]
+  before_action :authenticate_user_from_token!, except: [:create, :recover_password, :reset_password]
 
   def create
     user = User.new(user_params)
@@ -25,10 +25,39 @@ class Api::V1::UsersController < Api::ApiController
     respond_with current_user, location: '', scope: headers
   end
 
+  def recover_password
+    user = User.find_for_database_authentication(email: recover_password_params[:email])
+    return not_found_error unless user.present?
+
+    service = ::Users::RecoverPassword.call(user: user)
+    response_handler(service)
+  end
+
+  def reset_password
+    user = User.find_by(email: params[:email])
+
+    return render_not_found_error unless user.present?
+
+    user.send_reset_password_instructions
+    render_success
+  end
+
   private
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def recover_password_params
+    params.permit(:email)
+  end
+
+  def response_handler(service)
+    if service.success?
+      render_success
+    else
+      render_unprocessable_entity_error(service.error)
+    end
   end
 
 end
