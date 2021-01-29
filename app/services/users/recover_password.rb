@@ -2,7 +2,7 @@ class Users::RecoverPassword < BusinessProcess::Base
   needs :user
 
   steps :fetch_user,
-  		:send_mailer
+  		  :send_mailer
 
 
   def call
