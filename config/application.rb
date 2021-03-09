@@ -19,9 +19,9 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# raise 'Change ProjectName in application.rb'
+raise 'Change ProjectName in application.rb'
 
-module WebApiTemplate
+module <APP_NAME>
   class Application < Rails::Application
     config.app_generators.scaffold_controller :responders_controller
     # Initialize configuration defaults for originally generated Rails version.
@@ -29,7 +29,7 @@ module WebApiTemplate
 
     I18n.available_locales = ['pt-BR', :en]
     config.i18n.default_locale = :'pt-BR'
-    
+
     config.time_zone = 'Brasilia'
     config.active_record.default_timezone = :local
 
@@ -66,6 +66,6 @@ module WebApiTemplate
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_web_api_template_session"}
+    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_<APP_NAME>_session"}
   end
 end
