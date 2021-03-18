@@ -1,4 +1,3 @@
-# Most things based on https://docs.google.com/document/d/1ixsaDg9OdC6iUIHQjsXe2x4uppfFvX3-23tW-yqg-Ok/edit?usp=sharing
 
 AllCops:
   Exclude:
@@ -14,17 +13,14 @@ AllCops:
     - 'features/support/env.rb'
     - 'features/step_definitions/*'
     - 'bin/*'
+    - 'node_modules/**/*'
 
 # METRICS
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/factories/**'
     - 'app/models/concerns/rails_admin/*'
-
-Metrics/LineLength:
-  Max: 150
-  Exclude:
-    - 'app/models/**/*'
 
 Metrics/AbcSize:
   Max: 20
@@ -84,7 +80,12 @@ Style/RegexpLiteral:
 
 # LAYOUTS
 
-Layout/Tab:
+Layout/LineLength:
+  Max: 150
+  Exclude:
+    - 'app/models/**/*'
+
+Layout/IndentationStyle:
   Enabled: true
 
 Layout/EmptyLinesAroundClassBody:
@@ -116,7 +117,7 @@ Layout/ClassStructure:
     - private_methods
     - protected_methods
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   EnforcedStyle: powerpack
 
 # Trailing white space is meaningful in code examples
@@ -141,4 +142,4 @@ Lint/Debugger:
 
 # NAMES
 Naming/PredicateName:
-  NamePrefixBlacklist: []
+  ForbiddenPrefixes: []

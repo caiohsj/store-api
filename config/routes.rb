@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, only: []
+  # mount Sidekiq::Web => '/sidekiq'
+
+  devise_for :users, controllers: { passwords: "passwords" }
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
@@ -8,6 +10,10 @@ Rails.application.routes.draw do
         collection do
           post :sign_in, controller: :sessions, action: :create
           post :facebook_auth, controller: :sessions, action: :facebook_auth
+          put :recover_password
+          post :reset_password
+          put :update_password, controller: :passwords, action: :update
+          post :apple_auth, controller: :sessions, action: :apple_auth
         end
       end
     end

@@ -1,3 +1,12 @@
+before_script:
+  - apt-get update >/dev/null
+  - apt-get install -y locales >/dev/null
+  - echo "en_US UTF-8" > /etc/locale.gen
+  - locale-gen en_US.UTF-8
+  - export LANG=en_US.UTF-8
+  - export LANGUAGE=en_US:en
+  - export LC_ALL=en_US.UTF-8
+
 variables:
   MYSQL_DATABASE: <TEST_DB_NAME>
   MYSQL_ROOT_NAME: root
@@ -7,11 +16,15 @@ variables:
   GEMSET_NAME: <GEMSET_NAME>
 
 danger:
-  image: <PROJECT_RUBY_VERSION>
+  image: registry.gitlab.com/jera-software/jera-dockers/jera_image:latest
   only:
     - merge_requests
   script:
+    - source /etc/profile.d/rvm.sh
+    - rvm install $RUBY_VERSION
+    - rvm use $RUBY_VERSION@$GEMSET_NAME --create
     - gem install bundler
+    - gem install libv8
     - bundle install -j $(nproc) --path vendor/ruby
     - bundle exec danger
   cache:
@@ -25,7 +38,7 @@ cucumber:
     - merge_requests
     - develop
     - master
-  image: victorcostaoliveira/jera_image:1.1.0
+  image: registry.gitlab.com/jera-software/jera-dockers/jera_image:latest
   script:
     - mv /usr/sbin/mysqld /usr/bin/mysqld
     - ln -nfs /usr/bin/mysqld /usr/sbin/mysqld
@@ -58,6 +71,8 @@ staging:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - gem install mina
+    - mina deploy:force_unlock ENV=staging
+    - mina setup ENV=staging
     - mina deploy ENV=staging
   only:
     - develop
@@ -73,6 +88,8 @@ production:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - gem install mina
+    - mina deploy:force_unlock ENV=production
+    - mina setup ENV=production
     - mina deploy ENV=production
   only:
     - master

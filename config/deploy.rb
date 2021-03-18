@@ -18,7 +18,7 @@ set :gemset,    fetch(:user)
 if fetch(:environment) == 'staging'
   set :branch,    'develop'
   set :rails_env, 'staging'
-  set :domain,    '18.235.124.66'
+  set :domain,    'sif.jera.com.br'
   set :deploy_to, "/var/www/#{fetch(:user)}/staging"
 elsif fetch(:environment) == 'production'
   set :branch,    'master'
@@ -105,8 +105,6 @@ task :deploy do
     command %[echo "DEPLOY_TO ---> #{fetch(:deploy_to)}"]
     command %[echo "SHARED PATH ---> #{fetch(:shared_path)}"]
     command %[bundle install --without development test]
-    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'puma'
-    invoke :'rvm:wrapper', "#{fetch(:ruby_version)}@#{fetch(:gemset)}","#{fetch(:gemset)}_#{fetch(:environment)}",'sidekiq'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'

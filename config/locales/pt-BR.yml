@@ -1,4 +1,27 @@
 pt-BR:
+  devise:
+    mailers:
+      hi: Olá
+      forgot_your_password: Esqueceu sua senha?
+      send_reset_password_instructions: ENVIAR
+      someone_asked_reset_your_password: Esqueceu sua senha?
+      change_my_password: Clique AQUI para recuperá-la
+      if_you_did_not_request_this: Não solicitou esta alteração?
+      type_your_email: Digite seu email para receber as intruções de recuperar senha
+      your_password_will_not_be_changed_until: Ignore este e-mail. Sua senha não será alterada.
+      update_password: Alterar senha
+      save_new_password: SALVAR NOVA SENHA
+      enter_your_new_password: Digite sua nova senha
+      automatic_message: Essa é uma mensagem automática. Não responda esse email.
+      copyright_message: "Aperta & Solta - Todos os direitos reservados - Copyright © 2020."
+      change_password: Você solicitou a troca de senha de sua conta em nosso aplicativo, clique no botão abaixo para criar uma nova.
+      change_password_button: Mudar senha
+      confirm_email:
+        welcome: Bem vindo!
+        description: "Obrigado por criar uma conta no Aperta & Solta."
+        confirmation_instruction: "Para confirmar sua conta é simples. Clique no botão abaixo e seu email será confirmado e você poderá ter acesso a todas as vantagens do nosso sistema."
+        click_to_confirm: CLIQUE AQUI PARA CONFIRMAR SEU EMAIL
+        needs_confirmation: Sua conta não será criada se você não confirmar no link acima.
   date:
     abbr_day_names:
     - dom
@@ -100,6 +123,12 @@ pt-BR:
       year: Ano
   admin:
     js:
+      validations:
+          globals:
+            required: Não pode ficar em branco
+            invalid: Valor inválido
+          password:
+            success: Senha atualizada com sucesso.
       true: Sim
       false: Não
       is_present: Está presente
@@ -285,32 +314,63 @@ pt-BR:
       formats:
         long: “%d/%m/%Y às %H:%M”
   activerecord:
+    models:
+      user:
+        one: Usuário
+        other: Usuários
     attributes:
       user:
         password: Senha
-        email: Email
+        email: E-mail
         name: Nome
         document: Documento
+        reset_password_token: Token de recuperação de senha
     errors:
       models:
         user:
           attributes:
             password:
               blank: Não pode ficar em branco
-              too_short: muito pequena, minimo é 6
-              too_long: muito Grande, máximo é 128
+              too_short: muito pequena, tamanho mínimo é 6 caracteres
+              too_long: muito grande, tamanho máximo é 128 caracteres
             name:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
             email:
               taken: já existe
-              blank: Não pode ficar em branco
-              invalid: Inválido
+              blank: não pode ficar em branco
+              invalid: inválido
             document:
-              blank: Não pode ficar em branco
+              blank: não pode ficar em branco
               taken: já existe
               invalid: Inválido
+            reset_password_token:
+              invalid: Inválido e/ou Expirado
   services:
     session_service:
       errors:
         invalid_params: Email ou senha invalidos
         user_not_found: Usuário não encontrado
+  mail:
+    recovery_password:
+      subject: Api Template - Recuperação de senha
+      mail_to: "%{user_name} <%{email}>"
+  mailers:
+    automatic_message: Isso é uma mensagem automática. Não responda esse email.
+    copyright_message: "API Template - Todos os direitos reservados - Copyright © AnoDoProjeto"
+    greetings: "Olá %{name}, "
+    change_password_request: Você solicitou a troca de senha de sua conta em nosso aplicativo.
+    if_you_did_not_request_this: Não solicitou esta alteração?
+    your_password_will_not_be_changed_until: Ignore este e-mail. Sua senha não será alterada.
+    use_this_password: Utilize a senha a seguir para acessar seu aplicativo
+    after_access: Após acessar o aplicativo utilizando sua nova senha,
+    we_recommend: recomendamos fortemente
+    change_password: que altere sua senha nas configurações ou peça a um adimistrador para fazer essa alteração.
+  views:
+    passwords:
+      edit:
+        update_password: Redefinir senha
+        choose_your_new_password: Escolha sua nova senha!
+        new_password: Nova senha
+        confirm_new_password: Repetir nova senha
+        submit: Enviar
+        password_unmatch: As senhas não se coincidem!
