@@ -9,13 +9,11 @@ class Api::ApiController < ActionController::API
   protected
 
   def serialize_resource(resource, serializer, scope: nil)
-    response = JSON.parse(serializer.new(resource, scope: scope).to_json)
-    response
+    JSON.parse(serializer.new(resource, scope: scope).to_json)
   end
 
   def serialize_resource_list(resources, serializer)
-    response = JSON.parse(ActiveModelSerializers::SerializableResource.new(resources, each_serializer: serializer).to_json)
-    response
+    JSON.parse(ActiveModelSerializers::SerializableResource.new(resources, each_serializer: serializer).to_json)
   end
 
   def serialize_fixed_values(values)
